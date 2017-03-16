@@ -1,0 +1,19 @@
+syntax = 'proto3';
+
+package mycodesmells.golangexamples.grpc.message;
+option go_package = "github.com/mycodesmells/golang-examples/grpc/proto/message";
+
+message Person {
+    string first_name = 1;
+    string last_name = 2;
+    string date_of_birth = 3;
+    bool cool = 4;
+    int32 arguments_won = 5;
+    repeated Hobby hobbies = 6;
+}
+
+message Hobby {
+    string name = 1;
+    string description = 2;
+}
+
