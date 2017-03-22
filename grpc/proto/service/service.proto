@@ -1,0 +1,34 @@
+syntax = 'proto3';
+
+package mycodesmells.golangexamples.grpc.service;
+option go_package = "github.com/mycodesmells/golang-examples/grpc/proto/service";
+
+import "google/protobuf/empty.proto";
+
+service SimpleServer {
+    rpc CreateUser(CreateUserRequest) returns (google.protobuf.Empty) {}
+    rpc GetUser(GetUserRequest) returns (User) {}
+    rpc GreetUser(GreetUserRequest) returns (GreetUserResponse) {}
+}
+
+message CreateUserRequest {
+    User user = 1;
+}
+
+message GetUserRequest {
+    string username = 1;
+}
+
+message GreetUserRequest {
+    string username = 1;
+    string greeting = 2;
+}
+
+message GreetUserResponse {
+    string greeting = 1;
+}
+
+message User {
+    string username = 1;
+    string role = 2;
+}

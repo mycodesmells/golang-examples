@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	p := message.Person{
+	pers := message.Person{
 		FirstName:    "John",
 		LastName:     "Doe",
 		DateOfBirth:  "1960-10-17T0:00:00Z",
@@ -24,7 +24,7 @@ func main() {
 		},
 	}
 
-	fmt.Printf("Person created for .proto structure: %v\n", p)
+	fmt.Printf("Person created for .proto structure: %v\n", pers)
 
-	fmt.Printf("Full name (custom fn): %s\n", p.FullName())
+	fmt.Printf("Full name (custom fn): %s\n", pers.FullName())
 }
