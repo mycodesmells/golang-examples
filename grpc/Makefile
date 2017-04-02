@@ -2,6 +2,9 @@ gen_proto:
 	protoc --go_out=plugins=grpc:${GOPATH}/src proto/service/service.proto
 	protoc --go_out=${GOPATH}/src proto/message/message.proto
 
+gen_server_tls:
+	openssl req -x509 -newkey rsa:4096 -keyout cmd/server/server-key.pem -out cmd/server/server-cert.pem -days 365 -nodes -subj '/CN=localhost'
+
 run:
 	go run main.go
 

@@ -11,6 +11,8 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
 
 	pb "github.com/mycodesmells/golang-examples/grpc/proto/service"
 )
@@ -25,7 +27,15 @@ func main() {
 	log.Printf("Listening on %s\n", addr)
 	defer lis.Close()
 
-	server := grpc.NewServer()
+	creds, err := credentials.NewServerTLSFromFile("cmd/server/server-cert.pem", "cmd/server/server-key.pem")
+	if err != nil {
+		log.Fatalf("Failed to setup tls: %v", err)
+	}
+
+	server := grpc.NewServer(
+		grpc.Creds(creds),
+		grpc.UnaryInterceptor(AuthInterceptor),
+	)
 	pb.RegisterSimpleServerServer(server, NewServer())
 
 	server.Serve(lis)
@@ -92,4 +102,19 @@ func (s server) GreetUser(ctx context.Context, req *pb.GreetUserRequest) (*pb.Gr
 	return &pb.GreetUserResponse{
 		Greeting: fmt.Sprintf("%s, %s! You are a great %s!", strings.Title(req.Greeting), user.Username, user.Role),
 	}, nil
+}
+
+func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	meta, ok := metadata.FromContext(ctx)
+	if !ok {
+		return nil, grpc.Errorf(codes.Unauthenticated, "missing context metadata")
+	}
+	if len(meta["token"]) != 1 {
+		return nil, grpc.Errorf(codes.Unauthenticated, "invalid token")
+	}
+	if meta["token"][0] != "valid-token" {
+		return nil, grpc.Errorf(codes.Unauthenticated, "invalid token")
+	}
+
+	return handler(ctx, req)
 }
