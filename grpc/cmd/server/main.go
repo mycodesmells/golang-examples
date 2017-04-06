@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 	"strings"
 
 	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -19,14 +21,18 @@ import (
 
 func main() {
 	addr := ":6000"
-
+	clientAddr := fmt.Sprintf("localhost%s", addr)
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("failed to initializa TCP listen: %v", err)
 	}
-	log.Printf("Listening on %s\n", addr)
 	defer lis.Close()
 
+	go runGRPC(lis)
+	runHTTP(clientAddr)
+}
+
+func runGRPC(lis net.Listener) {
 	creds, err := credentials.NewServerTLSFromFile("cmd/server/server-cert.pem", "cmd/server/server-key.pem")
 	if err != nil {
 		log.Fatalf("Failed to setup tls: %v", err)
@@ -38,7 +44,23 @@ func main() {
 	)
 	pb.RegisterSimpleServerServer(server, NewServer())
 
+	log.Printf("gRPC Listening on %s\n", lis.Addr().String())
 	server.Serve(lis)
+}
+
+func runHTTP(clientAddr string) {
+	addr := ":6001"
+	creds, err := credentials.NewClientTLSFromFile("cmd/server/server-cert.pem", "")
+	if err != nil {
+		log.Fatalf("gateway cert load error: %s", err)
+	}
+	opts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
+	mux := runtime.NewServeMux()
+	if err := pb.RegisterSimpleServerHandlerFromEndpoint(context.Background(), mux, clientAddr, opts); err != nil {
+		log.Fatalf("failed to start HTTP server: %v", err)
+	}
+	log.Printf("HTTP Listening on %s\n", addr)
+	log.Fatal(http.ListenAndServe(addr, mux))
 }
 
 type server struct {
@@ -53,7 +75,7 @@ func NewServer() server {
 
 func (s server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*empty.Empty, error) {
 	log.Println("Creating user...")
-	user := req.User
+	user := req.GetUser()
 
 	if user.Username == "" {
 		return nil, grpc.Errorf(codes.InvalidArgument, "username cannot be empty")
@@ -109,10 +131,10 @@ func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServe
 	if !ok {
 		return nil, grpc.Errorf(codes.Unauthenticated, "missing context metadata")
 	}
-	if len(meta["token"]) != 1 {
+	if len(meta["authorization"]) != 1 {
 		return nil, grpc.Errorf(codes.Unauthenticated, "invalid token")
 	}
-	if meta["token"][0] != "valid-token" {
+	if meta["authorization"][0] != "valid-token" {
 		return nil, grpc.Errorf(codes.Unauthenticated, "invalid token")
 	}
 
