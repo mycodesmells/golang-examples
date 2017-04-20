@@ -21,7 +21,6 @@ func main() {
 
 	e.GET("/", func(ectx echo.Context) error {
 		log := logger.FromContext(ectx)
-		log.Info("Hello world")
 
 		sessionID := ectx.Get("sessionID").(string)
 		s, err := sessionsStore.Get(sessionID)
