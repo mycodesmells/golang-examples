@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo"
 
 	"github.com/mycodesmells/golang-examples/redis/logger"
-	"github.com/mycodesmells/golang-examples/redis/pagehit"
+	pagehit "github.com/mycodesmells/golang-examples/redis/pagehit-2"
 	"github.com/mycodesmells/golang-examples/redis/sessions"
 )
 
