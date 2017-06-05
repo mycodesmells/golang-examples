@@ -1,0 +1,12 @@
+version: '2'
+services:
+  web:
+    build: docker/web
+    ports: 
+      - "3000:3000"
+  metrics:
+    image: prom/prometheus
+    ports: 
+      - "9090:9090"
+    volumes:
+      - ./docker/metrics/prometheus.yml:/etc/prometheus/prometheus.yml
