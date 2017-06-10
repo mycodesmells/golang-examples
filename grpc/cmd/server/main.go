@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -49,6 +50,8 @@ func runGRPC(lis net.Listener) {
 }
 
 func runHTTP(clientAddr string) {
+	runtime.HTTPError = CustomHTTPError
+
 	addr := ":6001"
 	creds, err := credentials.NewClientTLSFromFile("cmd/server/server-cert.pem", "")
 	if err != nil {
@@ -139,4 +142,22 @@ func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServe
 	}
 
 	return handler(ctx, req)
+}
+
+type errorBody struct {
+	Err string `json:"error,omitempty"`
+}
+
+func CustomHTTPError(ctx context.Context, _ *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, _ *http.Request, err error) {
+	const fallback = `{"error": "failed to marshal error message"}`
+
+	w.Header().Set("Content-type", marshaler.ContentType())
+	w.WriteHeader(runtime.HTTPStatusFromCode(grpc.Code(err)))
+	jErr := json.NewEncoder(w).Encode(errorBody{
+		Err: grpc.ErrorDesc(err),
+	})
+
+	if jErr != nil {
+		w.Write([]byte(fallback))
+	}
 }
