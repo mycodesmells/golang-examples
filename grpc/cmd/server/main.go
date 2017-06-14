@@ -29,11 +29,26 @@ func main() {
 	}
 	defer lis.Close()
 
-	go runGRPC(lis)
-	runHTTP(clientAddr)
+	//this channel will be used to halt
+	//the program in case there are errors
+	errc := make(chan error)
+
+	go func() {
+		//when runGRPC returns an error a log
+		//below will be printed about the error
+		errc <- runGRPC(lis)
+	}()
+
+	go func() {
+		//same with here
+		errc <- runHTTP(clientAddr)
+	}()
+
+	//this will block until an error is returned
+	log.Fatal("%s", <-errc)
 }
 
-func runGRPC(lis net.Listener) {
+func runGRPC(lis net.Listener) error {
 	creds, err := credentials.NewServerTLSFromFile("cmd/server/server-cert.pem", "cmd/server/server-key.pem")
 	if err != nil {
 		log.Fatalf("Failed to setup tls: %v", err)
@@ -46,10 +61,11 @@ func runGRPC(lis net.Listener) {
 	pb.RegisterSimpleServerServer(server, NewServer())
 
 	log.Printf("gRPC Listening on %s\n", lis.Addr().String())
-	server.Serve(lis)
+
+	return server.Serve(lis)
 }
 
-func runHTTP(clientAddr string) {
+func runHTTP(clientAddr string) error {
 	runtime.HTTPError = CustomHTTPError
 
 	addr := ":6001"
@@ -63,7 +79,8 @@ func runHTTP(clientAddr string) {
 		log.Fatalf("failed to start HTTP server: %v", err)
 	}
 	log.Printf("HTTP Listening on %s\n", addr)
-	log.Fatal(http.ListenAndServe(addr, mux))
+
+	return http.ListenAndServe(addr, mux)
 }
 
 type server struct {
