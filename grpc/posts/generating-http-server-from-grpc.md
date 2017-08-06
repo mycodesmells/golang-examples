@@ -43,7 +43,7 @@ You will be amazed how little you need to change to the proto files. Basically, 
         }
         rpc GreetUser(GreetUserRequest) returns (GreetUserResponse) {
             option (google.api.http) = {
-                post: "/users/{username}/greet"
+                post: "/users/{username}/greet",
                 body: "*"
             };
         }
