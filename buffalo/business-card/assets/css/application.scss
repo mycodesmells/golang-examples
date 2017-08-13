@@ -1,0 +1,47 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+
+@import "home";
+
+header {
+    text-align: center;
+    border-bottom: solid 1px black;
+
+    .title {
+        font-family: 'Saira', sans-serif;
+        font-size: 6rem;
+    }
+
+    .subtitle {
+        font-family: 'Sedgwick Ave', cursive;
+        font-size: 2rem;
+    }
+}
+
+.menu {
+    width: 36rem;
+    height: 2.8rem;
+    font-family: 'Saira', sans-serif;
+
+    &__item {
+        height: 3rem;
+        width: 12rem;
+        float: left;
+        margin-top: -1px;
+        font-size: 2rem;
+        color: black;
+
+        &:hover {
+            font-weight: bold;
+        }
+
+        &--active {
+            border: solid 1px black;
+            border-bottom: solid 1px white;
+
+            &:hover {
+                font-weight: normal;
+            }
+        }
+    }
+}

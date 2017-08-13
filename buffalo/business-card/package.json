@@ -1,0 +1,35 @@
+{
+  "name": "business-card",
+  "version": "1.0.0",
+  "description": "Thank you for choosing Buffalo for your web development needs.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "bootstrap": "^3.3.7",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.4",
+    "expose-loader": "^0.7.3",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "jquery-ujs": "^1.2.2",
+    "node-sass": "^4.5.3",
+    "npm-install-webpack-plugin": "^4.0.4",
+    "path": "^0.12.7",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "url-loader": "^0.5.9",
+    "webpack": "^2.3.3"
+  }
+}

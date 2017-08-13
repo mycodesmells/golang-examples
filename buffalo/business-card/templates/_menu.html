@@ -1,0 +1,5 @@
+<nav class="menu">
+    <a href="/"><div class="menu__item<%= if (isCurrentPathName(current_route, "rootPath"))   { %> menu__item--active<% } %>">Home</div></a>
+    <a href="/resume"><div class="menu__item<%= if (isCurrentPathName(current_route, "resumePath")) { %> menu__item--active<% } %>">Resume</div></a>
+    <a href="/contact"><div class="menu__item<%= if (isCurrentPathName(current_route, "contactPath")) { %> menu__item--active<% } %>">Contact</div></a>
+</nav>
