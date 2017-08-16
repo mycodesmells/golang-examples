@@ -4,6 +4,7 @@ import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr"
+	"github.com/gobuffalo/plush"
 )
 
 var r *render.Engine
@@ -18,8 +19,11 @@ func init() {
 
 		// Add template helpers here:
 		Helpers: render.Helpers{
-			"isCurrentPathName": func(current buffalo.RouteInfo, name string) bool {
-				return current.PathName == name
+			"isCurrentPath": func(name string, ctx plush.HelperContext) bool {
+				if cr, ok := ctx.Value("current_route").(buffalo.RouteInfo); ok {
+					return cr.PathName == name
+				}
+				return false
 			},
 		},
 	})
