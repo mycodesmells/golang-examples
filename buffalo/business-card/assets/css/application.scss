@@ -1,8 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
-@import "home";
-
 header {
     text-align: center;
     border-bottom: solid 1px black;
@@ -16,6 +14,22 @@ header {
         font-family: 'Sedgwick Ave', cursive;
         font-size: 2rem;
     }
+
+    .language-switch {
+        float: right;
+
+        &__option {
+            float: left;
+            width: 50%;
+            padding: .5rem;
+            cursor: pointer;
+        }
+    }
+}
+
+footer {
+    border-top: solid 1px black;
+    margin-top: 1rem;
 }
 
 .menu {
@@ -42,6 +56,35 @@ header {
             &:hover {
                 font-weight: normal;
             }
+        }
+    }
+}
+
+.home {
+    text-align: center;
+    margin: 1rem auto 0;
+    max-width: 80rem;
+}
+
+.resume {
+    text-align: justify;
+    margin: 1rem auto 0;
+    max-width: 80rem;
+}
+
+.contact {
+    text-align: center;
+    margin-top: 1rem;
+
+    .link {
+        text-decoration: none;
+        color: #000000;
+        display: inline-block;
+        margin: 1rem 1.5rem;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
         }
     }
 }

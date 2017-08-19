@@ -1,0 +1,23 @@
+# For more information on using i18n see: https://github.com/nicksnyder/go-i18n
+- id: page-subtitle
+  translation: "Moja bardzo osobista wizytówka."
+- id: footer-prefix
+  translation: Napędzane przez
+
+- id: menu-home
+  translation: Główna
+- id: menu-resume
+  translation: Resume
+- id: menu-contact
+  translation: Kontakt
+
+- id: home-welcome
+  translation: "Witaj w mojej wizytówce! Tutaj dowiesz się wiele o mnie: kim jestem, co robię, jakie mam doświadczenie. Możesz też się ze mną skontaktować, jeśli uznasz że warto. A warto!"
+
+- id: resume-1
+  translation: "[PL] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac ultricies leo, efficitur consequat elit. Sed lobortis sed enim efficitur condimentum. Donec sed urna nec purus consectetur fermentum id quis dolor. In quis tortor at magna tempor interdum vitae quis nulla. Cras maximus hendrerit felis, non imperdiet libero vehicula vitae. Aenean facilisis eu libero ac viverra. Integer maximus tellus quis elit luctus, et dignissim erat eleifend."
+- id: resume-2
+  translation: "[PL] Nam porta mattis suscipit. Aliquam id ullamcorper nisi. Proin quis mollis ipsum. Duis mollis lobortis vehicula. Proin ex risus, mollis quis dapibus sit amet, dapibus non massa. Etiam egestas dolor arcu, eu interdum ex ornare ut. Vivamus commodo mauris commodo sapien tempus pellentesque. Mauris metus ex, lobortis quis bibendum bibendum, imperdiet a velit. Mauris rhoncus gravida nibh, suscipit accumsan mauris mollis ut. Suspendisse nibh nunc, ultricies vel aliquam sit amet, varius rhoncus sem. Praesent varius turpis at felis elementum auctor. Cras metus nunc, scelerisque quis arcu nec, pharetra bibendum odio."
+
+- id: contact-message
+  translation: "Możesz skontaktować się ze mną za pomocą:"

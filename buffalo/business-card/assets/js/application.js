@@ -1,6 +1,4 @@
-require('expose-loader?$!expose-loader?jQuery!jquery');
-require("bootstrap/dist/js/bootstrap.js");
-
-$(() => {
-
-});
+window.switchLanguage = function (lang) {
+    document.cookie="lang=" + lang
+    window.location.reload()
+}

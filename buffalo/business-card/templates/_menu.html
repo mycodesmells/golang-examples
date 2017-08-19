@@ -1,5 +1,18 @@
 <nav class="menu">
-    <a href="/"><div class="menu__item<%= if (isCurrentPath("rootPath"))   { %> menu__item--active<% } %>">Home</div></a>
-    <a href="/resume"><div class="menu__item<%= if (isCurrentPath("resumePath")) { %> menu__item--active<% } %>">Resume</div></a>
-    <a href="/contact"><div class="menu__item<%= if (isCurrentPath("contactPath")) { %> menu__item--active<% } %>">Contact</div></a>
+    <a href="/">
+        <div class="menu__item<%= if (isCurrentPath("rootPath"))   { %> menu__item--active<% } %>">
+            <%= t("menu-home") %>
+        </div>
+    </a>
+    
+    <a href="/resume">
+        <div class="menu__item<%= if (isCurrentPath("resumePath")) { %> menu__item--active<% } %>">
+            <%= t("menu-resume") %>
+        </div>
+    </a>
+    <a href="/contact">
+        <div class="menu__item<%= if (isCurrentPath("contactPath")) { %> menu__item--active<% } %>">
+        <%= t("menu-contact") %>
+        </div>
+    </a>
 </nav>

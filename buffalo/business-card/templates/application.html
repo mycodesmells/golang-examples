@@ -12,10 +12,15 @@
 
     <div>
       <header>
+          <div class="language-switch">
+            <div class="language-switch__option language-switch__option--en" onclick="switchLanguage('en-us')">EN</div>
+            <div class="language-switch__option language-switch__option--pl" onclick="switchLanguage('pl-pl')">PL</div>
+          </div>
+
         <div>
           <h1 class="title">Paweł Słomka</h1>
           <h2 class="subtitle">
-            My very personal business card.
+            <%= t("page-subtitle") %>
           </h2>
         </div>
         <%= partial("menu.html") %>
@@ -24,7 +29,9 @@
       <%= partial("flash.html") %>
       <%= yield %>
 
-      <div class="foot"> <span> Powered by <a href="http://gobuffalo.io/">gobuffalo.io</a></span> </div>
+      <footer>
+          <%= t("footer-prefix") %> <a href="http://gobuffalo.io/">gobuffalo.io</a>
+      </footer>
     </div>
 
     <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
