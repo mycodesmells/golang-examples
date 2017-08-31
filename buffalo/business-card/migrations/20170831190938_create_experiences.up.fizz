@@ -1,0 +1,7 @@
+create_table("experiences", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("company", "text", {})
+	t.Column("from", "timestamp", {})
+	t.Column("to", "timestamp", {})
+	t.Column("description", "text", {"null": true})
+})

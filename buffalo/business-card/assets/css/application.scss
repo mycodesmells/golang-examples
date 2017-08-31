@@ -88,3 +88,19 @@ footer {
         }
     }
 }
+
+.experience-entry {
+    display: inline-block;
+
+    &__timerange {
+        width: 30%;
+        float: left;
+        padding: 1rem;
+    }
+
+    &__details {
+        width: 70%;
+        float: left;
+    }
+
+}

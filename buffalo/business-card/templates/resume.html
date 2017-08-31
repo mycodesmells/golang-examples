@@ -1,8 +1,22 @@
 <div class="resume">
-    <p>
-        <%= t("resume-1") %>
-    </p>
-    <p>
-        <%= t("resume-2") %>
-    </p>
+    <div class="experience">
+        <h3>Experience</h3>
+        <div class="experience-entries">
+            <%= for (e) in experience { %>
+                <div class="experience-entry">
+                    <div class="experience-entry__timerange">
+                        <%= e.From.Format("Jan 2006") %>
+                        -
+                        <%= e.To.Format("Jan 2006") %>
+                    </div>
+                    <div class="experience-entry__details">
+                        <h4><%= e.Position %></h4>
+                        <h5><%= e.Company %></h5>
+                        <p><%= e.Description %></p> 
+                    </div>
+                </div>
+            <% } %> 
+        </div>
+
+    </div>
 </div>
