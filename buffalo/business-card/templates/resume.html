@@ -1,6 +1,6 @@
 <div class="resume">
     <div class="experience">
-        <h3>Experience</h3>
+        <h2>Experience</h3>
         <div class="experience-entries">
             <%= for (e) in experience { %>
                 <div class="experience-entry">
@@ -19,4 +19,21 @@
         </div>
 
     </div>
+
+    <div class="skills">
+        <h2>Skills</h3>
+        <%= for (category, skills) in skillset { %>
+            <div class="skills__category skills">
+                <h4><%= category %></h4>
+                <%= for (skill) in skills { %>
+                <div class="skills__item skills-item">
+                    <div class="skills-item__name"><%= skill.Name %></div>
+                    <div class="skills-item__level"><%= skill.Level %></div>
+                </div>
+                <% } %>
+            </div>
+        <% } %>
+    </div>
+
+    
 </div>

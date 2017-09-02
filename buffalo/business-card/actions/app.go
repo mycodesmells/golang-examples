@@ -61,6 +61,7 @@ func App() *buffalo.App {
 		app.GET("/routes", RoutesHandler)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
+		app.Resource("/skills", SkillsResource{&buffalo.BaseResource{}})
 	}
 
 	return app

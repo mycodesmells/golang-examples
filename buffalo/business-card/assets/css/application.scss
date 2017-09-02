@@ -102,5 +102,19 @@ footer {
         width: 70%;
         float: left;
     }
+}
 
+.skills-item {
+    display: inline-block;
+    width: 100%;
+    
+    &__name {
+        width: 30%;
+        float: left;
+    }
+
+    &__level {
+        width: 70%;
+        float: left;
+    }
 }

@@ -1,0 +1,29 @@
+<h1>Skills</h1>
+<p>
+  <a href="<%= newSkillsPath() %>" class="btn btn-primary">Create New Skill</a>
+</p>
+
+<table class="table table-striped">
+  <thead>
+  <th>&nbsp;</th>
+  </thead>
+  <tbody>
+    <%= for (skill) in skills { %>
+      <tr>
+      <td><%= skill.Name %></td>
+      <td><%= skill.Category %></td>
+      <td>
+          <div class="pull-right">
+            <a href="<%= skillPath({ skill_id: skill.ID }) %>" class="btn btn-info">View</a>
+            <a href="<%= editSkillPath({ skill_id: skill.ID }) %>" class="btn btn-warning">Edit</a>
+            <a href="<%= skillPath({ skill_id: skill.ID }) %>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<div class="text-center">
+  <%= paginator(pagination) %>
+</div>

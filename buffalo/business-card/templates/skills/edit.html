@@ -1,0 +1,6 @@
+<h1>Edit Skill</h1>
+
+<%= form_for(skill, {action: skillPath({ skill_id: skill.ID }), method: "PUT"}) { %>
+  <%= partial("skills/form.html") %>
+  <a href="<%= skillsPath({ skill_id: skill.ID }) %>" class="btn btn-warning" data-confirm="Are you sure?">Cancel</a>
+<% } %>

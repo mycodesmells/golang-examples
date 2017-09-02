@@ -1,0 +1,6 @@
+create_table("skills", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("name", "text", {})
+	t.Column("category", "text", {"null": true})
+	t.Column("level", "text", {})
+})
