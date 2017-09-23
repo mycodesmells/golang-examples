@@ -11,6 +11,8 @@ import (
 	"github.com/gobuffalo/buffalo/middleware/csrf"
 	"github.com/gobuffalo/buffalo/middleware/i18n"
 	"github.com/gobuffalo/packr"
+
+	"github.com/markbates/goth/gothic"
 )
 
 // ENV is used to help switch settings based on where the
@@ -24,6 +26,8 @@ var T *i18n.Translator
 // application.
 func App() *buffalo.App {
 	if app == nil {
+		envy.Load()
+
 		app = buffalo.Automatic(buffalo.Options{
 			Env:         ENV,
 			SessionName: "_business-card_session",
@@ -61,7 +65,12 @@ func App() *buffalo.App {
 		app.GET("/routes", RoutesHandler)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
-		app.Resource("/skills", SkillsResource{&buffalo.BaseResource{}})
+		app.Resource("/skills", SkillsResource{&buffalo.BaseResource{}}).Use(IsAuth())
+
+		auth := app.Group("/auth")
+		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
+		auth.GET("/{provider}/callback", AuthCallback)
+		auth.GET("/logout", AuthLogout)
 	}
 
 	return app
