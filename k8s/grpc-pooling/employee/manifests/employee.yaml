@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: employee
+spec:
+  replicas: 5
+  selector:
+    app: employee
+  template:
+    metadata:
+      labels:
+        app: employee
+    spec:
+      containers:
+        - image: mcs/lb-employee:0.0.1
+          imagePullPolicy: IfNotPresent
+          name: employee
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ADDR
+              value: :8000
+                

@@ -1,0 +1,23 @@
+syntax = 'proto3';
+
+package mycodesmells.golangexamples.k8s.loadbalancer.message;
+option go_package = "github.com/mycodesmells/golang-examples/k8s/load-balancer/proto/message";
+
+// import "google/protobuf/empty.proto";
+// import "google/api/annotations.proto";
+
+service Worker {
+    rpc Work(JobRequest) returns (JobResponse) {}
+}
+
+message JobRequest {
+    string id = 1;
+    float base = 2;
+    float exponent = 3;
+}
+
+message JobResponse {
+    string id = 1;
+    string worker_id = 2;
+    float result = 3;
+}

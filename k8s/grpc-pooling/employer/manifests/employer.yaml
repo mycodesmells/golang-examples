@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: employer
+spec:
+  replicas: 1
+  selector:
+    app: employer
+  template:
+    metadata:
+      labels:
+        app: employer
+    spec:
+      containers:
+        - image: mcs/lb-employer:adhoc
+          imagePullPolicy: IfNotPresent
+          name: employer
+          ports:
+            - containerPort: 8000
+          livenessProbe: 
+            httpGet:
+              path: /healthz
+              port: 8000
+          readinessProbe: 
+            httpGet:
+              path: /healthz
+              port: 8000
+          env:
+            - name: ADDR
+              value: :8000
+            - name: EMPLOYEE_ADDR
+              value: employee:8000
+                

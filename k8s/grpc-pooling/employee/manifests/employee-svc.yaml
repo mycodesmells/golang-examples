@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: employee

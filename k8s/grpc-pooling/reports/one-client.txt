@@ -1,0 +1,64 @@
+
+Summary:
+  Total:	510.3192 secs
+  Slowest:	10.0433 secs
+  Fastest:	9.9958 secs
+  Average:	10.0049 secs
+  Requests/sec:	9.6018
+  Total data:	161700 bytes
+  Size/request:	33 bytes
+
+Detailed Report:
+
+	DNS+dialup:
+  		Average:	0.0001 secs
+  		Fastest:	0.0000 secs
+  		Slowest:	0.0046 secs
+
+	DNS-lookup:
+  		Average:	0.0000 secs
+  		Fastest:	0.0000 secs
+  		Slowest:	0.0000 secs
+
+	Request Write:
+  		Average:	0.0000 secs
+  		Fastest:	0.0000 secs
+  		Slowest:	0.0011 secs
+
+	Response Wait:
+  		Average:	10.0048 secs
+  		Fastest:	9.9958 secs
+  		Slowest:	10.0432 secs
+
+	Response Read:
+  		Average:	0.0000 secs
+  		Fastest:	0.0000 secs
+  		Slowest:	0.0014 secs
+
+Status code distribution:
+  [200]	4900 responses
+
+Response time histogram:
+  9.996 [1]	|
+  10.001 [489]	|∎∎∎∎∎∎∎
+  10.005 [2848]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  10.010 [1103]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  10.015 [233]	|∎∎∎
+  10.020 [73]	|∎
+  10.024 [68]	|∎
+  10.029 [61]	|∎
+  10.034 [12]	|
+  10.039 [2]	|
+  10.043 [10]	|
+
+Latency distribution:
+  10% in 10.0006 secs
+  25% in 10.0023 secs
+  50% in 10.0039 secs
+  75% in 10.0062 secs
+  90% in 10.0098 secs
+  95% in 10.0142 secs
+  99% in 10.0267 secs
+
+Error distribution:
+  [100]	Get http://192.168.99.100:30180/power?base=1&exponent=4: net/http: request canceled (Client.Timeout exceeded while awaiting headers)
