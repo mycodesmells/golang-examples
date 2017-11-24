@@ -1,0 +1,7 @@
+[[constraint]]
+  name = "github.com/mycodesmells/golang-examples-ctxlog"
+  source = "github.com/slomek/golang-examples-ctxlog"
+
+[[constraint]]
+  name = "github.com/mycodesmells/golang-examples-log"
+  version = "2.0.0"
