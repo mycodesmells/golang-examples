@@ -79,7 +79,7 @@ func main() {
 			return
 		}
 
-		client := pb.NewWorkerClient(conn)
+		client := pb.NewWorkerClient(conn.ClientConn)
 
 		workResp, err := client.Work(ctx, &pb.JobRequest{
 			Id:       uuid.NewV4().String(),
