@@ -1,9 +1,0 @@
-syntax = 'proto3';
-
-package mycodesmells.golangexamples.nats.proto;
-option go_package = "github.com/mycodesmells/golang-examples/nats/proto";
-
-message PublishPostMessage {
-    string title = 1;
-    string content = 2;
-}

@@ -8,9 +8,10 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/mycodesmells/golang-examples/nats/proto"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
+
+	pb "github.com/mycodesmells/golang-examples/nats/pubsub/proto"
 )
 
 // Data to be rendered into post page template.

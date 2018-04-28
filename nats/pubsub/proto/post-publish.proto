@@ -1,0 +1,9 @@
+syntax = 'proto3';
+
+package mycodesmells.golangexamples.nats.pubsub.proto;
+option go_package = "github.com/mycodesmells/golang-examples/nats/pubsub/proto";
+
+message PublishPostMessage {
+    string title = 1;
+    string content = 2;
+}

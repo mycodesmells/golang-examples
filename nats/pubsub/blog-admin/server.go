@@ -6,10 +6,11 @@ import (
 	"net/http"
 
 	"github.com/golang/protobuf/proto"
-	pb "github.com/mycodesmells/golang-examples/nats/proto"
 	nats "github.com/nats-io/go-nats"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
+
+	pb "github.com/mycodesmells/golang-examples/nats/pubsub/proto"
 )
 
 type publishRequest struct {

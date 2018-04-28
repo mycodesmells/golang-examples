@@ -6,9 +6,10 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/gorilla/mux"
 	"github.com/kelseyhightower/envconfig"
-	pb "github.com/mycodesmells/golang-examples/nats/proto"
 	"github.com/nats-io/go-nats"
 	log "github.com/sirupsen/logrus"
+
+	pb "github.com/mycodesmells/golang-examples/nats/pubsub/proto"
 )
 
 type config struct {

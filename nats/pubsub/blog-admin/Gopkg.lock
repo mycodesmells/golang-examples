@@ -26,10 +26,10 @@
   version = "v1.3.0"
 
 [[projects]]
-  branch = "nats-example"
+  branch = "feat/nats-pubsub"
   name = "github.com/mycodesmells/golang-examples"
-  packages = ["nats/proto"]
-  revision = "320c394252568ed78261d80bbc2e791c4872519b"
+  packages = ["nats/pubsub/proto"]
+  revision = "d822c711d1babe465347c4fe44f879fdf160e67b"
 
 [[projects]]
   name = "github.com/nats-io/go-nats"
@@ -77,6 +77,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9277a4c8b8707d1796aef07b8a5fe5455c24e8bb7f625c259153f70e49496dcd"
+  inputs-digest = "f9d3b253063f83926b7434538311814f704a0c36f73d27ca61f7bf20a8144639"
   solver-name = "gps-cdcl"
   solver-version = 1
