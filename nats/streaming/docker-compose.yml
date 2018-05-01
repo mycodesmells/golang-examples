@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nats:
+    image: nats-streaming:latest
+    ports:
+     - "4222:4222"
+     - "8222:8222"
+  neatflyx:
+    build: neatflyx
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    depends_on:
+     - nats
+    environment:
+      ADDR: :9000
+      NATS_ADDR: nats://nats:4222
+  watcher:
+    build: watcher
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ADDR: :8080
+      NATS_ADDR: nats://nats:4222
