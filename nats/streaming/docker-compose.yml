@@ -1,10 +1,31 @@
 version: '3'
+
+# volumes:
+#   db_data: {}
+
 services:
   nats:
     image: nats-streaming:latest
+    command: -m 8222 --store SQL --sql_driver postgres --sql_source postgres://postgres@db?sslmode=disable
     ports:
      - "4222:4222"
      - "8222:8222"
+  db:
+    image: postgres:10
+    ports:
+     - "15432:5432"
+    # environment:
+      # MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    # volumes:
+    #   - db_data:/var/lib/mysql
+
+    # Streaming Server SQL Store Options:
+    # --sql_driver <string>            Name of the SQL Driver ("mysql" or "postgres")
+    # --sql_source <string>            Datasource used when opening an SQL connection to the database
+    # --sql_no_caching <bool>          Enable/Disable caching for improved performance
+    # --sql_max_open_conns <int>       Maximum number of opened connections to the database
+
+
   neatflyx:
     build: neatflyx
     restart: unless-stopped
