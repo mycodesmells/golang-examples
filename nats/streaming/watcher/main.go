@@ -1,7 +1,9 @@
 package main
 
 import (
-	"runtime"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/kelseyhightower/envconfig"
@@ -40,18 +42,22 @@ func main() {
 	// Start NATS subscriptions
 	startSubscription(natsClient, topicPublishEpisode, watchEpisode, startOpt(cfg.StartOpt))
 
-	log.Infof("Starting watcher service")
-	runtime.Goexit()
+	log.Infof("Starting new watcher service")
+
+	// Waiting for signal to shutdown.
+	c := make(chan os.Signal, 2)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	<-c
 }
 
-// Start subscription and exit if failed.
 func startSubscription(natsClient stan.Conn, topic string, handler stan.MsgHandler, startOpt stan.SubscriptionOption) {
 	durableName := uuid.NewV4().String()
-	_, err := natsClient.QueueSubscribe(topic, durableName, handler, startOpt, stan.DurableName(durableName))
-	if err != nil {
+
+	if _, err := natsClient.QueueSubscribe(topic, durableName, handler, startOpt, stan.DurableName(durableName)); err != nil {
 		natsClient.Close()
 		log.Fatal(err)
 	}
+	log.Infof("Started new regular subscription")
 }
 
 func watchEpisode(natsMsg *stan.Msg) {
