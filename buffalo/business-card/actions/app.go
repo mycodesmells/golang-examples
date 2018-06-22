@@ -19,6 +19,8 @@ import (
 // application is being run. Default is "development".
 var ENV = envy.Get("GO_ENV", "development")
 var app *buffalo.App
+
+// T is used to translate the app
 var T *i18n.Translator
 
 // App is where all routes and middleware for buffalo
@@ -28,13 +30,10 @@ func App() *buffalo.App {
 	if app == nil {
 		envy.Load()
 
-		app = buffalo.Automatic(buffalo.Options{
+		app = buffalo.New(buffalo.Options{
 			Env:         ENV,
 			SessionName: "_business-card_session",
 		})
-		// Automatically save the session if the underlying
-		// Handler does not return an error.
-		app.Use(middleware.SessionSaver)
 
 		if ENV == "development" {
 			app.Use(middleware.ParameterLogger)
@@ -43,7 +42,7 @@ func App() *buffalo.App {
 		if ENV != "test" {
 			// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 			// Remove to disable this.
-			app.Use(csrf.Middleware)
+			app.Use(csrf.New)
 		}
 
 		// Wraps each request in a transaction.
@@ -52,11 +51,7 @@ func App() *buffalo.App {
 		app.Use(middleware.PopTransaction(models.DB))
 
 		// Setup and use translations:
-		var err error
-		if T, err = i18n.New(packr.NewBox("../locales"), "en-US"); err != nil {
-			app.Stop(err)
-		}
-		app.Use(T.Middleware())
+		app.Use(translations())
 
 		app.GET("/", HomeHandler)
 		app.GET("/resume", ResumeHandler)
@@ -74,4 +69,16 @@ func App() *buffalo.App {
 	}
 
 	return app
+}
+
+// translations will load locale files, set up the translator `actions.T`,
+// and will return a middleware to use to load the correct locale for each
+// request.
+// for more information: https://gobuffalo.io/en/docs/localization
+func translations() buffalo.MiddlewareFunc {
+	var err error
+	if T, err = i18n.New(packr.NewBox("../locales"), "en-US"); err != nil {
+		app.Stop(err)
+	}
+	return T.Middleware()
 }
