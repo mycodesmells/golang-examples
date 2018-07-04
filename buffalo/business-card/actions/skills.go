@@ -2,7 +2,7 @@ package actions
 
 import (
 	"github.com/gobuffalo/buffalo"
-	"github.com/markbates/pop"
+	"github.com/gobuffalo/pop"
 	"github.com/mycodesmells/golang-examples/buffalo/business-card/models"
 	"github.com/pkg/errors"
 )
