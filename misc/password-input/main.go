@@ -25,7 +25,7 @@ func main() {
 	var password string
 	if *typePass {
 		fmt.Printf("Password for user %s: ", *username)
-		bytePassword, err := terminal.ReadPassword(int(syscall.Stderr))
+		bytePassword, err := terminal.ReadPassword(int(syscall.Stdin))
 		if err != nil {
 			fmt.Printf("Failed to read password: %v", err)
 		}
