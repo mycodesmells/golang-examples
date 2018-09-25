@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: worker
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: worker
+spec:
+  replicas: 2
+  selector:
+    app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - image: mycodesmells/k8s-checks-worker:2
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /checks/liveness
+              port: 8000
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /checks/readiness
+              port: 8000
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          name: worker
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ADDR
+              value: :8000
+            - name: REDIS_ADDR
+              value: cache-redis-master:6379
