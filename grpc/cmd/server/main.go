@@ -41,7 +41,7 @@ func runGRPC(lis net.Listener) {
 
 	server := grpc.NewServer(
 		grpc.Creds(creds),
-		grpc.UnaryInterceptor(AuthInterceptor),
+		// grpc.UnaryInterceptor(AuthInterceptor),
 	)
 	pb.RegisterSimpleServerServer(server, NewServer())
 
@@ -130,7 +130,7 @@ func (s server) GreetUser(ctx context.Context, req *pb.GreetUserRequest) (*pb.Gr
 }
 
 func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-	meta, ok := metadata.FromContext(ctx)
+	meta, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return nil, grpc.Errorf(codes.Unauthenticated, "missing context metadata")
 	}
