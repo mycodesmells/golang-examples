@@ -1,0 +1,16 @@
+syntax = 'proto3';
+
+package mycodesmells.celgo.models;
+option go_package = "github.com/mycodesmells/golang-examples/cel/models";
+
+message Person {
+    string name = 1;
+    string country = 2;
+    int32 age = 3;
+}
+
+message Country {
+    string code = 1;
+    bool beer_legal = 2;
+    int32 beer_age_limit = 3;
+}
